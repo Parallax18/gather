@@ -1,106 +1,55 @@
 # Gather
 
-A small, clean event management app. Browse upcoming events, reserve a seat with
-just your name and email, and manage everything from an organizer dashboard.
+Gather is a small event management app for communities and organizers. Browse local gatherings, save a place with your name and email, and manage your own events from an organizer studio.
 
-Built with **Hono**, **React**, **Tailwind CSS**, **shadcn/ui**, and **SQLite**.
+## Run locally
 
-## Features
-
-- Landing page with a product intro, upcoming events, and calls to action
-- Public list of upcoming events with seats remaining
-- Event detail page with date, location, capacity, and registration form
-- Organizer signup and sign-in with email and password
-- Each organizer manages only their own events
-- Organizer dashboard for creating, editing, and deleting events
-- Attendee list per event
-- Server-side validation with clear success and error messages
-- Responsive UI with a minimal, Linear-inspired look
-- SQLite storage with a unique constraint per event and email
-
-## Requirements
-
-- Node.js 20 or newer
-- npm
-
-## Quick start
+Requires Node.js 22.13 or newer. The app uses Node's built-in SQLite module and has no third-party runtime dependencies.
 
 ```bash
-npm install
 npm run dev
 ```
 
-Open **http://localhost:5173**.
+Open [http://localhost:8787](http://localhost:8787). You can also run it directly with `node server.mjs`.
 
-The API runs on port `8787` and the Vite dev server proxies `/api` requests to
-it. On first run, three sample events are added so the app is not empty.
+The first run creates `data/gather.db` and adds three example events. Create your own organizer account from **Host an event**. There is no shared demo organizer password.
 
-## Organizer access
+## Features
 
-Create an account at **http://localhost:5173/signup**, or use the seeded demo
-account:
-
-```
-Email:    organizer@gather.local
-Password: organizer
-```
-
-The demo account owns the sample events. New accounts start with an empty
-dashboard and manage only the events they create.
-
-## Production build
-
-```bash
-npm run build
-npm start
-```
-
-The Hono server serves the built frontend and the API together at
-**http://localhost:8787**.
-
-## Scripts
-
-| Command             | What it does                                      |
-| ------------------- | ------------------------------------------------- |
-| `npm run dev`       | Run the API and Vite dev server together          |
-| `npm run build`     | Build the frontend into `dist/`                   |
-| `npm start`         | Serve the built app and API (port 8787)           |
-| `npm run typecheck` | Type-check the whole project                      |
-| `npm run db:reset`  | Delete the local database; it is reseeded on next start |
+- Public landing page and upcoming event list
+- Event detail pages with registration, available seats, date, and location
+- Organizer signup and sign-in
+- Organizer-only event creation, editing, deletion, and attendee lists
+- SQLite persistence, duplicate-registration protection, and serialized capacity checks
+- Input validation, bounded request bodies, secure password hashing, and session cookies
+- Responsive interface with no remote assets or install-time dependencies
 
 ## Configuration
 
-All settings are optional. Copy `.env.example` to `.env` to use them.
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `8787` | Local HTTP port |
+| `DB_PATH` | `data/gather.db` | SQLite file path |
+| `SEED` | `true` | Set to `false` to skip sample events |
+| `COOKIE_SECURE` | `false` | Set to `true` when serving over HTTPS |
 
-| Variable        | Default          | Purpose                                        |
-| --------------- | ---------------- | ---------------------------------------------- |
-| `PORT`          | `8787`           | API / production server port                   |
-| `SEED`          | `true`           | Set to `false` to start with no sample events  |
-| `DB_PATH`       | `data/gather.db` | SQLite file location                           |
-| `COOKIE_SECURE` | `false`          | Set to `true` when serving over HTTPS          |
+The server listens on `127.0.0.1` by default for local use. Sessions are persisted in SQLite and expire after 12 hours.
 
-## Project structure
+## Project layout
 
-```
-server/
-  index.ts        Hono app, routes, static file serving
-  db.ts           SQLite connection, schema, sample data
-  events.ts       Event and registration queries
-  organizers.ts   Organizer accounts
-  auth.ts         Organizer sessions and route protection
-  passwords.ts    Password hashing and verification
-  validation.ts   Zod schemas for request bodies
-src/
-  pages/          Landing, events, event detail, login, signup, organizer, 404
-  components/     Event cards, forms, dialogs, auth shell, shadcn/ui primitives
-  lib/            API client, session context, types, formatting helpers
-data/             SQLite database (created at runtime, git-ignored)
-```
+- `server.mjs` — Node HTTP server, SQLite schema, API, authentication, and validation
+- `public/index.html` — app shell
+- `public/app.js` — browser routes, forms, and API interactions
+- `public/styles.css` — responsive visual system and page layouts
+- `data/gather.db` — created automatically at runtime (ignored by Git)
 
-## Notes
+## API overview
 
-- The database is created automatically at `data/gather.db`.
-- Passwords are hashed with scrypt and a per-account salt.
-- Sessions are kept in memory, so restarting the server signs organizers out.
-- This is a local demo app. Before using it for anything real, review the
-  authentication, input handling, and concurrency behaviour for your needs.
+- `GET /api/events`, `GET /api/events/:id`
+- `POST /api/events/:id/registrations`
+- `GET /api/auth/session`, `POST /api/auth/signup`, `POST /api/auth/login`, `POST /api/auth/logout`
+- `GET /api/organizer/events`, `POST /api/organizer/events`
+- `PUT /api/organizer/events/:id`, `DELETE /api/organizer/events/:id`
+- `GET /api/organizer/events/:id/attendees`
+
+Organizer endpoints check the session and event ownership on the server. Registration and capacity checks run inside an immediate SQLite transaction, and the database enforces one registration per email per event.

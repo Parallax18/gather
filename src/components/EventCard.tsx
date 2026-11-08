@@ -16,7 +16,7 @@ export function EventCard({ event }: { event: Event }) {
   return (
     <Link
       to={`/events/${event.id}`}
-      className="group flex flex-col rounded-xl border bg-card p-5 transition-all duration-200 hover:border-foreground/20 hover:shadow-[0_1px_2px_rgba(16,24,40,0.04),0_12px_32px_-16px_rgba(16,24,40,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      className="group flex flex-col rounded-2xl border border-border/80 bg-card/90 p-5 shadow-[0_2px_8px_rgba(35,43,35,0.025)] transition-all duration-200 hover:-translate-y-1 hover:border-foreground/20 hover:shadow-[0_18px_40px_-24px_rgba(35,43,35,0.24)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     >
       <div className="flex items-start justify-between gap-3">
         <DateBlock date={event.date} />

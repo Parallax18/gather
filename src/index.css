@@ -4,28 +4,28 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 4%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 4%;
+    --background: 42 30% 96%;
+    --foreground: 151 23% 13%;
+    --card: 45 40% 99%;
+    --card-foreground: 151 23% 13%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 4%;
-    --primary: 234 56% 60%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 10% 4%;
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
-    --accent: 240 5% 96%;
-    --accent-foreground: 240 10% 4%;
-    --destructive: 0 72% 51%;
+    --primary: 151 23% 19%;
+    --primary-foreground: 45 40% 99%;
+    --secondary: 39 23% 91%;
+    --secondary-foreground: 151 23% 13%;
+    --muted: 39 23% 91%;
+    --muted-foreground: 150 8% 43%;
+    --accent: 17 68% 54%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 4 68% 51%;
     --destructive-foreground: 0 0% 100%;
     --success: 152 58% 34%;
     --success-foreground: 0 0% 100%;
-    --border: 240 6% 90%;
-    --input: 240 6% 88%;
-    --ring: 234 56% 60%;
-    --radius: 0.625rem;
+    --border: 36 19% 84%;
+    --input: 36 19% 80%;
+    --ring: 17 68% 54%;
+    --radius: 0.875rem;
   }
 
   * {
@@ -39,6 +39,13 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-image: radial-gradient(ellipse at 50% -15%, rgba(225, 113, 77, 0.10), transparent 46%);
+  }
+
+  .font-editorial {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    letter-spacing: -0.045em;
   }
 
   ::selection {
