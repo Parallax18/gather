@@ -11,7 +11,7 @@ export function BrandMark({ className }: { className?: string }) {
     <span
       aria-hidden="true"
       className={cn(
-        "relative flex h-7 w-7 items-center justify-center rounded-[9px] bg-[#344a3b] shadow-sm",
+        "relative flex h-6 w-6 items-center justify-center rounded-[7px] bg-gradient-to-br from-[#6d78e8] to-[#4b44b4] shadow-sm",
         className,
       )}
     >
@@ -26,14 +26,14 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-        <div className="mx-auto flex h-[68px] w-full max-w-6xl items-center justify-between px-5 sm:px-8">
+      <header className="sticky top-0 z-40 border-b bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+        <div className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between px-5">
           <Link
             to="/"
             className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <BrandMark />
-            <span className="font-editorial text-[20px] tracking-tight">Gather</span>
+            <span className="text-[15px] font-semibold tracking-tight">Gather</span>
           </Link>
 
           <nav className="flex items-center gap-1">
@@ -88,7 +88,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 >
                   Sign in
                 </NavLink>
-                <Button asChild size="sm" className="ml-1 rounded-full px-4">
+                <Button asChild size="sm" className="ml-1">
                   <Link to="/signup">Get started</Link>
                 </Button>
               </>
@@ -97,14 +97,14 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-5 py-10 sm:px-8 sm:py-14">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-10 sm:py-14">
         {children}
       </main>
 
       <footer className="border-t">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-1 px-5 py-7 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <span className="font-medium text-foreground">Gather <span className="font-normal text-muted-foreground">· Make room for good things.</span></span>
-          <span>Made for people who bring people together.</span>
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-1 px-5 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>Gather — a small events demo.</span>
+          <span>Hono · React · SQLite</span>
         </div>
       </footer>
     </div>

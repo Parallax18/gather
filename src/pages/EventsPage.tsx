@@ -42,16 +42,16 @@ export function EventsPage() {
 
   return (
     <div className="animate-fade-in">
-      <div className="mb-10 flex flex-col gap-4 border-b border-border/80 pb-8 sm:flex-row sm:items-end sm:justify-between sm:pb-10">
+      <div className="mb-9 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#bd6547]">
-            Find your people
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Events
           </p>
-          <h1 className="font-editorial mt-2 text-4xl tracking-tight sm:text-5xl">
-            Out in the world
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+            Upcoming events
           </h1>
-          <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground">
-            A little inspiration for your calendar. Find a gathering that feels like your kind of thing.
+          <p className="mt-2 max-w-xl text-sm text-muted-foreground">
+            Find something worth showing up for. Reserve a seat in a few seconds.
           </p>
         </div>
         {events && events.length > 0 && (
@@ -76,9 +76,10 @@ export function EventsPage() {
       ) : events.length === 0 && !error ? (
         <div className="flex flex-col items-center rounded-xl border border-dashed px-6 py-16 text-center">
           <CalendarX2 className="h-8 w-8 text-muted-foreground" />
-          <h2 className="font-editorial mt-4 text-2xl">A little quiet on the calendar.</h2>
+          <h2 className="mt-4 text-base font-medium">No upcoming events</h2>
           <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-            There aren’t any gatherings listed just yet. Check back soon, or make the first plan yourself.
+            There's nothing on the calendar right now. Check back soon, or create
+            an event if you're an organizer.
           </p>
           <Button asChild variant="outline" className="mt-5">
             <Link to="/organizer">
